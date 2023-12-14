@@ -1,0 +1,137 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<style>
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <a class="navbar-brand" href="/">Media Vibe</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <form class="form-inline w-100">
+      <!-- Add w-100 class to make the form fill the width -->
+      <input
+        class="form-control ml-sm-2 mr-sm-2 w-100 rounded-pill"
+        style="border-radius: 35px"
+        type="search"
+        id="searchInput"
+        placeholder="Search"
+        autocomplete="off"
+        aria-label="Search"
+        onkeypress="handleKeyPress(event)" />
+
+      <script>
+        function handleKeyPress(event) {
+          // Mendapatkan nilai input
+          const inputValue = document.getElementById("searchInput").value;
+
+          // Menjalankan pencarian saat tombol "Enter" ditekan
+          if (event.key === "Enter") {
+            event.preventDefault();
+
+            // Redirect ke URL pencarian
+            window.location.href = `/search?term=${inputValue}`;
+          }
+        }
+      </script>
+    </form>
+  </div>
+
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a
+        class="nav-link"
+        href="#"
+        data-toggle="modal"
+        data-target="#uploadModal">
+        <i class="fa fa-plus"></i>
+      </a>
+    </li>
+  </ul>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    style="border: none !important">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
+
+<div class="modal" id="uploadModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upload Image</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          action="/"
+          method="post"
+          id="myForm"
+          enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="imageName">Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="imageName"
+              name="nama"
+              autocomplete="off"
+              placeholder="Enter name"
+              required />
+          </div>
+          <div class="form-group">
+            <label for="imageDesc">Description:</label>
+            <textarea
+              class="form-control"
+              id="imageDesc"
+              rows="3"
+              name="desc"
+              placeholder="Enter description"
+              required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="imageFile">Choose Video:</label>
+            <input
+              type="file"
+              class="form-control-file"
+              id="imageFile"
+              name="image"
+              accept="video/*"
+              required />
+          </div>
+          <button
+            data-sitekey="6LfslRQoAAAAAHVBGwEVitjEQSjCD6F8unKDUdct"
+            data-callback="onSubmit"
+            name="g-recaptcha-response"
+            id="postButton"
+            data-action="submit"
+            type="submit"
+            class="btn g-recaptcha btn-primary">
+            Upload
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function onSubmit(token) {
+    // Handle form submission or any other action you want after reCAPTCHA is verified
+    document.getElementById("myForm").submit();
+  }
+</script>
